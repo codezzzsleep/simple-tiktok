@@ -13,6 +13,8 @@ type FeedResponse struct {
 }
 
 // Feed same demo video list for every request
+// 现在的 VideoList 只能获取已经预先写好的 DemoVideos 变量
+
 func Feed(c *gin.Context) {
 	c.JSON(http.StatusOK, FeedResponse{
 		Response:  Response{StatusCode: 0},

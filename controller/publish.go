@@ -13,6 +13,7 @@ type VideoListResponse struct {
 }
 
 // Publish check token then save upload file to public directory
+// Publish 函数检查 token 是否合法，然后将上传视频保存到 public 文件夹中
 func Publish(c *gin.Context) {
 	token := c.PostForm("token")
 
@@ -49,6 +50,7 @@ func Publish(c *gin.Context) {
 }
 
 // PublishList all users have same publish video list
+//每个人都有相同的 发布视频列表
 func PublishList(c *gin.Context) {
 	c.JSON(http.StatusOK, VideoListResponse{
 		Response: Response{

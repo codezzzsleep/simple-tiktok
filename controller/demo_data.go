@@ -1,5 +1,7 @@
 package controller
 
+//获取视频列表
+
 var DemoVideos = []Video{
 	{
 		Id:            1,
@@ -12,6 +14,8 @@ var DemoVideos = []Video{
 	},
 }
 
+// 获取评论列表
+
 var DemoComments = []Comment{
 	{
 		Id:         1,
@@ -20,6 +24,8 @@ var DemoComments = []Comment{
 		CreateDate: "05-01",
 	},
 }
+
+//获取用户信息列表
 
 var DemoUser = User{
 	Id:            1,

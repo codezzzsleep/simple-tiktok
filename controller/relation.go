@@ -11,6 +11,7 @@ type UserListResponse struct {
 }
 
 // RelationAction no practical effect, just check if token is valid
+// RelationAction函数并不起作用，只是检查返回的token是否合法
 func RelationAction(c *gin.Context) {
 	token := c.Query("token")
 
@@ -22,6 +23,7 @@ func RelationAction(c *gin.Context) {
 }
 
 // FollowList all users have same follow list
+//所有人都有相同的关注列表
 func FollowList(c *gin.Context) {
 	c.JSON(http.StatusOK, UserListResponse{
 		Response: Response{
@@ -32,6 +34,7 @@ func FollowList(c *gin.Context) {
 }
 
 // FollowerList all users have same follower list
+//所有人都有相同的粉丝列表
 func FollowerList(c *gin.Context) {
 	c.JSON(http.StatusOK, UserListResponse{
 		Response: Response{

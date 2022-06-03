@@ -16,6 +16,7 @@ type CommentActionResponse struct {
 }
 
 // CommentAction no practical effect, just check if token is valid
+// CommentAction并不起作用，只是检查token是否合法
 func CommentAction(c *gin.Context) {
 	token := c.Query("token")
 	actionType := c.Query("action_type")
@@ -39,6 +40,7 @@ func CommentAction(c *gin.Context) {
 }
 
 // CommentList all videos have same demo comment list
+// 每个用户都有相同的评论列表
 func CommentList(c *gin.Context) {
 	c.JSON(http.StatusOK, CommentListResponse{
 		Response:    Response{StatusCode: 0},

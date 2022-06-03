@@ -6,6 +6,7 @@ import (
 )
 
 // FavoriteAction no practical effect, just check if token is valid
+// 点赞列表没有作用，只是检查token是否合法
 func FavoriteAction(c *gin.Context) {
 	token := c.Query("token")
 
@@ -17,6 +18,7 @@ func FavoriteAction(c *gin.Context) {
 }
 
 // FavoriteList all users have same favorite video list
+// 每个人都有相同的 点赞列表
 func FavoriteList(c *gin.Context) {
 	c.JSON(http.StatusOK, VideoListResponse{
 		Response: Response{

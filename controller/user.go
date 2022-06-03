@@ -7,8 +7,13 @@ import (
 )
 
 // usersLoginInfo use map to store user info, and key is username+password for demo
+// usersLoginInfo 使用map数据结构去存储用户信息，在demo中键值对的key是用户名+密码
+
 // user data will be cleared every time the server starts
+// 每次启动服务，用户数据将被清空
+
 // test data: username=zhanglei, password=douyin
+// 预先设定的测试数据，
 var usersLoginInfo = map[string]User{
 	"zhangleidouyin": {
 		Id:            1,
