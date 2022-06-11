@@ -1,5 +1,9 @@
 # simple-tiktok
 
+## 声明 
+
+项目原地址 [地址](https://gitee.com/where-know-return/simple-tiktok)
+
 ## 编译运行项目
 ```shell
 #编译
@@ -8,22 +12,14 @@ go build main.go router.go
 ./main.exe
 ```
 
-**然后用手机连接电脑热点，手动代理IP即可进行调试**
+**然后用手机连接电脑热点，手动代理IP即可进行调试** 
 
-## 项目分工
-- **侯凯恒** 视频Feed流，视频投稿信息，个人信息，
-  *对应文件*
+## 本地运行注意事项
 
-  > feed.go  publish.go user.go
+1.  客户端下载 [地址](https://bytedance.feishu.cn/docs/doccnM9KkBAdyDhg8qaeGlIz7S7) 
+2. PC端需要有 Mysql数据库，且已开启服务 （ps: 默认数据库账户和密码均为 root，如需个更改，请在db_connect .go 文件中修改）
+3. 手机客户端与服务器通信办法（视频流需要的带宽挺大的，建议本地调试）[参考办法](https://juejin.cn/post/7096857967747661831)
 
-- **张文鋆**  粉丝列表，关注列表，*对应文件*
-    
-    > relation.go
-- **聂慈** 点赞列表，评论列表 *对应文件*
-   
-   >  favorite.go comment.go
-## 数据库
-项目使用 MySQL数据库
-本地调试请修改 **db_connect.go** 文件的用户名和密码
+## 鸣谢 
 
-文件中的用户名和密码均为 root
+[字节跳动后端青训营](https://youthcamp.bytedance.com/) 
