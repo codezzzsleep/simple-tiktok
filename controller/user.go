@@ -1,9 +1,9 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"sync/atomic"
 )
 
 // usersLoginInfo use map to store user info, and key is username+password for demo
@@ -41,23 +41,24 @@ func Register(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
 
-	token := username + password
+	var user User
 
-	if _, exist := usersLoginInfo[token]; exist {
+	//判断数据库中是否出现这个用户
+	if rowsAffected := DB.Where("name = ?", username).First(&user).RowsAffected; rowsAffected != 0 {
 		c.JSON(http.StatusOK, UserLoginResponse{
 			Response: Response{StatusCode: 1, StatusMsg: "User already exist"},
 		})
 	} else {
-		atomic.AddInt64(&userIdSequence, 1)
 		newUser := User{
-			Id:   userIdSequence,
-			Name: username,
+			Name:     username,
+			Password: password,
 		}
-		usersLoginInfo[token] = newUser
+		DB.Create(&newUser)
+		//Create的作用相当于insert
 		c.JSON(http.StatusOK, UserLoginResponse{
 			Response: Response{StatusCode: 0},
-			UserId:   userIdSequence,
-			Token:    username + password,
+			UserId:   newUser.Id,
+			Token:    username,
 		})
 	}
 }
@@ -66,14 +67,22 @@ func Login(c *gin.Context) {
 	username := c.Query("username")
 	password := c.Query("password")
 
-	token := username + password
+	var user User
+	if rowsAffected := DB.Where("name = ?", username).First(&user).RowsAffected; rowsAffected != 0 {
+		if user.Password == password {
+			//测试是否进来
+			fmt.Println("11111111111111111111")
+			c.JSON(http.StatusOK, UserLoginResponse{
+				Response: Response{StatusCode: 0},
+				UserId:   user.Id,
+				Token:    user.Name,
+			})
+		} else { //密码错误
+			c.JSON(http.StatusOK, UserLoginResponse{
+				Response: Response{StatusCode: 1, StatusMsg: "Incorrect password"},
+			})
+		}
 
-	if user, exist := usersLoginInfo[token]; exist {
-		c.JSON(http.StatusOK, UserLoginResponse{
-			Response: Response{StatusCode: 0},
-			UserId:   user.Id,
-			Token:    token,
-		})
 	} else {
 		c.JSON(http.StatusOK, UserLoginResponse{
 			Response: Response{StatusCode: 1, StatusMsg: "User doesn't exist"},
@@ -83,15 +92,16 @@ func Login(c *gin.Context) {
 
 func UserInfo(c *gin.Context) {
 	token := c.Query("token")
-
-	if user, exist := usersLoginInfo[token]; exist {
+	//token里面装的是username,判断username存不不存在
+	var user User
+	if rowsAffected := DB.Where("name = ?", token).First(&user).RowsAffected; rowsAffected != 0 {
 		c.JSON(http.StatusOK, UserResponse{
 			Response: Response{StatusCode: 0},
 			User:     user,
 		})
 	} else {
 		c.JSON(http.StatusOK, UserResponse{
-			Response: Response{StatusCode: 1, StatusMsg: "User doesn't exist"},
+			Response: Response{StatusCode: 1, StatusMsg: "User doesn't exist2"},
 		})
 	}
 }

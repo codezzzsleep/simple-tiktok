@@ -34,3 +34,11 @@ var DemoUser = User{
 	FollowerCount: 0,
 	IsFollow:      false,
 }
+var user1 = User{
+	Id:            2,
+	Name:          "user2",
+	FollowCount:   0,
+	FollowerCount: 0,
+	IsFollow:      false,
+}
+
